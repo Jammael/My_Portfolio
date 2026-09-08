@@ -1,0 +1,18 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+  icon: string;
+  id: string;
+}
+const { eyebrow, title, sub, icon, id } = Astro.props;
+---
+
+<header class="section-head">
+  <p class="section-eyebrow"><Icon name={icon} size={18} aria-hidden="true" />{eyebrow}</p>
+  <h2 class="section-title" id={`${id}-title`}>{title}</h2>
+  {sub && <p class="section-sub">{sub}</p>}
+</header>

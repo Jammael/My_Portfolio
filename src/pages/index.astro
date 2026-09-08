@@ -1,0 +1,383 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import ToolsMarquee from '../components/ToolsMarquee.astro';
+import SectionHead from '../components/SectionHead.astro';
+import avatar from '../assets/jammael-magallanes.jpg';
+import {
+  contactChannels,
+  profile,
+  projects,
+  services,
+  skillGroups,
+  stats,
+  timeline,
+} from '../data/site';
+---
+
+<BaseLayout>
+  <div class="overlay" id="overlay" hidden></div>
+
+  <header class="mobile-bar">
+    <div class="mb-id">
+      <Image src={avatar} alt="" width={88} height={88} loading="eager" />
+      <span>
+        <span class="mb-name">{profile.name}</span><br />
+        <span class="mb-role">{profile.shortRole}</span>
+      </span>
+    </div>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sidebar">
+      <Icon name="ph:list-bold" size={24} aria-hidden="true" />
+      <span class="visually-hidden">Open navigation menu</span>
+    </button>
+  </header>
+
+  <div class="shell">
+    <Sidebar />
+
+    <div class="main">
+      <nav class="topbar" aria-label="Breadcrumb and quick actions">
+        <p class="crumb">Portfolio / <b id="crumbLabel">Home</b></p>
+        <a class="btn btn-primary" href="#contact">
+          Get in touch <Icon name="ph:arrow-up-right-bold" size={20} aria-hidden="true" />
+        </a>
+      </nav>
+
+      <main class="content" id="main-content">
+        <!-- ============ HOME ============ -->
+        <section id="home" aria-labelledby="home-title">
+          <div class="hero">
+            <div>
+              <h1 id="home-title">
+                Build it once.<br />Let it run for you<span class="dot">.</span>
+              </h1>
+              <p class="hero-lead">{profile.intro}</p>
+              <div class="hero-actions">
+                <a class="btn btn-primary" href="#contact">
+                  <Icon name="ph:paper-plane-tilt-bold" size={20} aria-hidden="true" /> Hire me
+                </a>
+                <a class="btn btn-outline" href="#projects">
+                  <Icon name="ph:folder-open-bold" size={20} aria-hidden="true" /> See my work
+                </a>
+              </div>
+            </div>
+
+            <ToolsMarquee />
+
+            <ul class="stat-grid" style="list-style:none;">
+              {
+                stats.map((stat) => (
+                  <li class="stat-card">
+                    <span class={`tile tone-${stat.tone}`}>
+                      <Icon name={stat.icon} size={26} aria-hidden="true" />
+                    </span>
+                    <span>
+                      <span class="stat-value">{stat.value}</span>
+                      <span class="stat-label" style="display:block;">{stat.label}</span>
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+
+            <h2 class="visually-hidden">Explore the portfolio</h2>
+            <div class="bento">
+              <a class="bento-card bento-span-2" href="#projects">
+                <span class="bento-head">
+                  <span class="tile tone-accent"><Icon name="ph:folder-open-bold" size={26} aria-hidden="true" /></span>
+                  <h3>Projects</h3>
+                </span>
+                <p>Web systems built to solve real problems for clinics, colleges and small businesses.</p>
+                <ul class="bento-list">
+                  {
+                    projects.slice(0, 3).map((project, i) => (
+                      <li>
+                        <span>{project.title}</span>
+                        <span class="num">{String(i + 1).padStart(2, '0')}</span>
+                      </li>
+                    ))
+                  }
+                </ul>
+                <span class="bento-more">View all projects <Icon name="ph:arrow-right-bold" size={18} aria-hidden="true" /></span>
+              </a>
+
+              <a class="bento-card" href="#services">
+                <span class="bento-head">
+                  <span class="tile tone-green"><Icon name="ph:stack-bold" size={26} aria-hidden="true" /></span>
+                  <h3>Services</h3>
+                </span>
+                <p>Automations, AI assistants and Laravel applications — built and maintained end to end.</p>
+                <span class="bento-more">What I build <Icon name="ph:arrow-right-bold" size={18} aria-hidden="true" /></span>
+              </a>
+
+              <a class="bento-card" href="#skills">
+                <span class="bento-head">
+                  <span class="tile tone-amber"><Icon name="ph:code-bold" size={26} aria-hidden="true" /></span>
+                  <h3>Skills</h3>
+                </span>
+                <p>The AI tools, frameworks and databases I reach for every day.</p>
+                <span class="bento-more">See the stack <Icon name="ph:arrow-right-bold" size={18} aria-hidden="true" /></span>
+              </a>
+
+              <a class="bento-card" href="#education">
+                <span class="bento-head">
+                  <span class="tile tone-violet"><Icon name="ph:graduation-cap-bold" size={26} aria-hidden="true" /></span>
+                  <h3>Education</h3>
+                </span>
+                <p>Information Systems student, certified in web development, shipping in production.</p>
+                <span class="bento-more">My background <Icon name="ph:arrow-right-bold" size={18} aria-hidden="true" /></span>
+              </a>
+
+              <a class="bento-card" href="#contact">
+                <span class="bento-head">
+                  <span class="tile tone-accent"><Icon name="ph:envelope-simple-bold" size={26} aria-hidden="true" /></span>
+                  <h3>Contact</h3>
+                </span>
+                <p>Have a process worth automating, or an app that needs finishing? Let's talk.</p>
+                <span class="bento-more">Start a conversation <Icon name="ph:arrow-right-bold" size={18} aria-hidden="true" /></span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ PROJECTS ============ -->
+        <section id="projects" aria-labelledby="projects-title">
+          <SectionHead
+            id="projects"
+            icon="ph:folder-open-bold"
+            eyebrow="Selected work"
+            title="Projects"
+            sub="Systems I have designed, built or repaired — each one running for real users."
+          />
+          <div class="card-grid cols-2">
+            {
+              projects.map((project) => (
+                <article class="project-card">
+                  <div class={`project-stripe stripe-${project.tone}`} aria-hidden="true" />
+                  <div class="project-body">
+                    <p class={`badge tone-${project.tone}`}>
+                      <Icon name={project.icon} size={18} aria-hidden="true" />
+                      {project.category}
+                    </p>
+                    <h3>{project.title}</h3>
+                    <p>{project.summary}</p>
+                    <ul class="tag-row" style="list-style:none;">
+                      {project.tags.map((tag) => <li class="tag">{tag}</li>)}
+                    </ul>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <!-- ============ SERVICES ============ -->
+        <section id="services" aria-labelledby="services-title">
+          <SectionHead
+            id="services"
+            icon="ph:stack-bold"
+            eyebrow="What I do"
+            title="Services"
+            sub="From a single automation to a full web application — scoped clearly, handed over documented."
+          />
+          <div class="card-grid">
+            {
+              services.map((service) => (
+                <article class="service-card">
+                  <span class="service-number" aria-hidden="true">{service.number}</span>
+                  <span class="tile tone-accent"><Icon name={service.icon} size={26} aria-hidden="true" /></span>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <!-- ============ SKILLS ============ -->
+        <section id="skills" aria-labelledby="skills-title">
+          <SectionHead
+            id="skills"
+            icon="ph:code-bold"
+            eyebrow="Capabilities"
+            title="Skills"
+            sub="The tools I use to get from a rough idea to something running in production."
+          />
+          <div class="card-grid cols-2">
+            {
+              skillGroups.map((group) => (
+                <article class="skill-card">
+                  <div class="skill-head">
+                    <span class={`tile tone-${group.tone}`}><Icon name={group.icon} size={26} aria-hidden="true" /></span>
+                    <h3>{group.title}</h3>
+                  </div>
+                  <ul class="pill-row">
+                    {group.skills.map((skill) => <li class="pill">{skill}</li>)}
+                  </ul>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <!-- ============ EDUCATION ============ -->
+        <section id="education" aria-labelledby="education-title">
+          <SectionHead
+            id="education"
+            icon="ph:graduation-cap-bold"
+            eyebrow="Background"
+            title="Education & Experience"
+            sub="Where I studied, what I am certified in, and where I have worked."
+          />
+          <ul class="timeline">
+            {
+              timeline.map((entry) => (
+                <li class="timeline-item">
+                  <span class={`tile tone-${entry.tone}`}><Icon name={entry.icon} size={26} aria-hidden="true" /></span>
+                  <div class="timeline-body">
+                    <div class="timeline-meta">
+                      <span class="timeline-kind">{entry.kind}</span>
+                      <span class="timeline-date">{entry.date}</span>
+                    </div>
+                    <h3>{entry.title}</h3>
+                    <p class="timeline-org">{entry.org}</p>
+                    <ul class="timeline-points">
+                      {entry.points.map((point) => <li>{point}</li>)}
+                    </ul>
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section id="contact" aria-labelledby="contact-title">
+          <div class="contact-card">
+            <div>
+              <h2 id="contact-title">Let's work together</h2>
+              <p>
+                Open to freelance automation work, OJT and internship placements, and junior developer
+                roles. Tell me what is eating your time and I will tell you honestly whether I can automate it.
+              </p>
+              <a class="btn btn-primary" href={`mailto:${profile.email}`}>
+                <Icon name="ph:paper-plane-tilt-bold" size={20} aria-hidden="true" /> Send an email
+              </a>
+            </div>
+            <ul class="contact-list">
+              {
+                contactChannels.map((channel) => (
+                  <li>
+                    {channel.href ? (
+                      <a
+                        href={channel.href}
+                        {...(channel.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        <span class="tile"><Icon name={channel.icon} size={22} aria-hidden="true" /></span>
+                        <span>
+                          <span class="contact-label">{channel.label}</span>
+                          <span class="contact-value">{channel.value}</span>
+                        </span>
+                      </a>
+                    ) : (
+                      <span class="static">
+                        <span class="tile"><Icon name={channel.icon} size={22} aria-hidden="true" /></span>
+                        <span>
+                          <span class="contact-label">{channel.label}</span>
+                          <span class="contact-value">{channel.value}</span>
+                        </span>
+                      </span>
+                    )}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>© {new Date().getFullYear()} {profile.name}. Built with Astro, Poppins and Phosphor icons.</p>
+        <p>{profile.location}</p>
+      </footer>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // ---- Mobile navigation -------------------------------------------------
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  const menuBtn = document.getElementById('menuBtn');
+
+  function setMenu(open: boolean) {
+    sidebar?.classList.toggle('open', open);
+    overlay?.classList.toggle('show', open);
+    if (overlay) overlay.hidden = !open;
+    menuBtn?.setAttribute('aria-expanded', String(open));
+  }
+
+  menuBtn?.addEventListener('click', () => setMenu(!sidebar?.classList.contains('open')));
+  overlay?.addEventListener('click', () => setMenu(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
+  });
+
+  // ---- Scroll spy: highlight the section currently in view ---------------
+  const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
+  const crumbLabel = document.getElementById('crumbLabel');
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('main > section[id]'));
+
+  navLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+  function syncActiveSection() {
+    let current = sections[0]?.id ?? 'home';
+    for (const section of sections) {
+      // 6rem scroll-margin puts a clicked section's top at ~108px; 200 keeps
+      // the highlight correct there and while free-scrolling.
+      if (section.getBoundingClientRect().top <= 200) current = section.id;
+    }
+    // The last section can never reach the threshold once the page bottoms
+    // out, so claim it explicitly when we are at the end of the document.
+    const atBottom =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
+    if (atBottom && sections.length) current = sections[sections.length - 1].id;
+
+    for (const link of navLinks) {
+      const isCurrent = link.getAttribute('href') === `#${current}`;
+      link.setAttribute('aria-current', String(isCurrent));
+      if (isCurrent && crumbLabel) crumbLabel.textContent = link.textContent?.trim() ?? 'Home';
+    }
+  }
+
+  document.addEventListener('scroll', syncActiveSection, { passive: true });
+  syncActiveSection();
+
+  // ---- Reader-controlled text size ---------------------------------------
+  const scaleButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.textsize button'));
+
+  function applyScale(scale: string, persist = true) {
+    document.documentElement.style.setProperty('--font-scale', scale);
+    scaleButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.scale === scale)));
+    if (persist) {
+      try {
+        localStorage.setItem('jm-font-scale', scale);
+      } catch {
+        /* storage blocked — the setting simply won't persist */
+      }
+    }
+  }
+
+  scaleButtons.forEach((button) =>
+    button.addEventListener('click', () => applyScale(button.dataset.scale ?? '1')),
+  );
+
+  try {
+    const saved = localStorage.getItem('jm-font-scale');
+    if (saved) applyScale(saved, false);
+  } catch {
+    /* ignore */
+  }
+</script>

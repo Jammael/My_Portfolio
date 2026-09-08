@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import avatar from '../assets/jammael-magallanes.jpg';
+import { nav, profile } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<aside class="sidebar" id="sidebar">
+  <div class="identity">
+    <div class="avatar-ring">
+      <Image
+        src={avatar}
+        alt={`Portrait of ${profile.name}, ${profile.role}`}
+        width={252}
+        height={252}
+        densities={[1, 2]}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <p class="identity-name">
+      {profile.name}
+      <Icon name="ph:seal-check-fill" size={22} aria-hidden="true" />
+    </p>
+    <p class="identity-handle">{profile.handle}</p>
+    <p class="identity-role">{profile.role}</p>
+
+    <div class="social-row">
+      <a class="social-btn" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label={`${profile.name} on GitHub`}>
+        <Icon name="ph:github-logo-bold" size={22} aria-hidden="true" />
+      </a>
+      <a class="social-btn" href={`mailto:${profile.email}`} aria-label={`Email ${profile.name}`}>
+        <Icon name="ph:envelope-simple-bold" size={22} aria-hidden="true" />
+      </a>
+      <a class="social-btn" href={`tel:${profile.phoneHref}`} aria-label={`Call ${profile.name}`}>
+        <Icon name="ph:phone-bold" size={22} aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+
+  <hr />
+
+  <nav aria-label="Section navigation">
+    <ul class="navlist">
+      {
+        nav.map((item, i) => (
+          <li>
+            <a href={`#${item.id}`} data-nav-link aria-current={i === 0 ? 'true' : 'false'}>
+              <Icon name={item.icon} size={22} aria-hidden="true" />
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="textsize" role="group" aria-label="Text size">
+      <span class="textsize-label" aria-hidden="true">
+        <Icon name="ph:text-aa-bold" size={18} /> Text size
+      </span>
+      <button type="button" data-scale="1" aria-pressed="true" aria-label="Normal text size">A</button>
+      <button type="button" data-scale="1.15" aria-pressed="false" aria-label="Large text size">A</button>
+      <button type="button" data-scale="1.32" aria-pressed="false" aria-label="Extra large text size">A</button>
+    </div>
+
+    <p class="status-chip"><span class="status-dot" aria-hidden="true"></span>{profile.availability}</p>
+    <p class="sidebar-copyright">© {year} {profile.name}. All rights reserved.</p>
+  </div>
+</aside>

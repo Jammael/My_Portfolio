@@ -1,0 +1,22 @@
+{
+  "name": "jammael-portfolio",
+  "type": "module",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Portfolio of Jammael Magallanes — AI Automation Builder & Web Developer.",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "start": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/poppins": "^5.3.0",
+    "@iconify-json/ph": "^1.2.2",
+    "astro": "^7.3.1",
+    "astro-icon": "^1.2.0",
+    "sharp": "^0.35.4"
+  }
+}

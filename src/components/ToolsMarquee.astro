@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+import { tools } from '../data/site';
+---
+
+<div class="marquee-card">
+  <div class="marquee-label">
+    <span class="kicker">Daily drivers</span>
+    <span class="title">Tools I work with</span>
+  </div>
+
+  <!-- The track holds two identical runs of the list; the animation moves it
+       exactly -50%, so the loop is seamless. The second run is hidden from
+       assistive tech to avoid reading every tool twice. -->
+  <div class="marquee">
+    <ul class="marquee-track">
+      {
+        tools.map((tool) => (
+          <li class="tool-chip">
+            <Icon name={tool.icon} size={24} aria-hidden="true" />
+            {tool.name}
+          </li>
+        ))
+      }
+      {
+        tools.map((tool) => (
+          <li class="tool-chip" aria-hidden="true">
+            <Icon name={tool.icon} size={24} />
+            {tool.name}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  .marquee-track { list-style: none; }
+</style>

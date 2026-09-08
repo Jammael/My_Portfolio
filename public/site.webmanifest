@@ -1,0 +1,13 @@
+{
+  "name": "Jammael Magallanes — AI Automation Builder & Web Developer",
+  "short_name": "Jammael M.",
+  "description": "Portfolio of Jammael Magallanes: AI workflow automation, AI agents and Laravel web applications.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f4f5fa",
+  "theme_color": "#12142a",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

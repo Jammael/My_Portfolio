@@ -1,0 +1,17 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/site';
+import { withBase } from '../lib/paths';
+---
+
+<BaseLayout title={`Page not found — ${profile.name}`} description="That page does not exist." path="/404" noindex>
+  <main class="content notfound" id="main-content">
+    <span class="tile tone-accent"><Icon name="ph:compass-bold" size={28} aria-hidden="true" /></span>
+    <h1 class="section-title">This page took a wrong turn.</h1>
+    <p class="section-sub">The page you were looking for does not exist — but the portfolio is one click away.</p>
+    <a class="btn btn-primary" href={withBase('/')}>
+      <Icon name="ph:house-bold" size={20} aria-hidden="true" /> Back to the portfolio
+    </a>
+  </main>
+</BaseLayout>
