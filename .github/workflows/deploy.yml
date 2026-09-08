@@ -28,16 +28,23 @@ jobs:
 
       - run: npm ci
 
-      - name: Type check
-        run: npm run check
-
+      # Build first: astro-icon writes the `virtual:astro-icon` module
+      # declaration (the Icon name union) to .astro/icon.d.ts during the build,
+      # and .astro/ is gitignored. `astro sync` does not emit it, so running
+      # `astro check` on a clean checkout before a build fails with
+      # "Cannot find module 'virtual:astro-icon'". Type check still gates the
+      # deploy, since the upload step below only runs if it passes.
       - name: Build
         env:
-          # Project site lives at https://<user>.github.io/<repo>/.
+          # Project site lives at https://<owner>.github.io/<repo>/. Taking the
+          # base from the repo name keeps it exact, casing included.
           # Using a custom domain? Set SITE_URL to it and BASE_PATH to "/".
-          SITE_URL: https://jammael.github.io
-          BASE_PATH: /my_portfolio
+          SITE_URL: https://${{ github.repository_owner }}.github.io
+          BASE_PATH: /${{ github.event.repository.name }}
         run: npm run build
+
+      - name: Type check
+        run: npm run check
 
       - uses: actions/upload-pages-artifact@v3
         with:
