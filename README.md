@@ -19,7 +19,10 @@ Static site, no runtime JavaScript framework, built for speed, search engines an
 | SEO | `@astrojs/sitemap` + hand-rolled metadata | Sitemap, robots.txt, canonical URLs, Open Graph, Twitter cards, JSON-LD. |
 | Hosting | GitHub Pages via GitHub Actions | Free, automatic on every push to `main`. |
 
-Everything builds to plain files in `dist/` — roughly 430 KB total, most of it fonts and the social image.
+Everything builds to plain files in `dist/` — roughly 400 KB total, most of it fonts and the social image.
+
+Lighthouse on the production build: **100 performance, 100 accessibility,
+100 best practices, 100 SEO** (CLS 0, TBT 0 ms, LCP 1.5 s).
 
 ---
 
@@ -33,9 +36,15 @@ npm run dev     # http://localhost:4321
 Other commands:
 
 ```bash
+npm run check     # type-check .astro files, config and data
 npm run build     # production build into dist/
 npm run preview   # serve the built site at http://localhost:4321
 ```
+
+`npm run check` also validates Phosphor icon names against the installed set, so
+a typo like `ph:foldr-open-bold` fails instead of silently rendering nothing.
+TypeScript is pinned to 6.x because `astro check` does not yet support the
+TypeScript 7 native compiler.
 
 ---
 
@@ -87,7 +96,7 @@ The site is built for readers with low vision and for older readers:
 - JSON-LD structured data: `Person` (job title, skills, location, education, employer) and `WebSite`.
 - `sitemap-index.xml` and a `robots.txt` generated from the deploy URL.
 - Semantic HTML: one `<h1>`, ordered headings, landmark elements, descriptive link text and alt text.
-- Static HTML, self-hosted fonts, WebP images and inlined critical CSS for strong Core Web Vitals.
+- Static HTML, WebP images, and preloaded self-hosted fonts plus inlined CSS — no render-blocking requests and zero layout shift.
 - `site.webmanifest`, favicon and Apple touch icon.
 
 ---

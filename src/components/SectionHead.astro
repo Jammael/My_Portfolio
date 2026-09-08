@@ -1,11 +1,14 @@
 ---
 import { Icon } from 'astro-icon/components';
+// Icon names are a union of every installed Phosphor name, so a typo like
+// "ph:foldr-open-bold" fails the build instead of rendering nothing.
+import type { Icon as IconName } from 'virtual:astro-icon';
 
 interface Props {
   eyebrow: string;
   title: string;
   sub?: string;
-  icon: string;
+  icon: IconName;
   id: string;
 }
 const { eyebrow, title, sub, icon, id } = Astro.props;
